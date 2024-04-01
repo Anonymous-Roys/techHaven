@@ -1,5 +1,4 @@
 'use client'
-
 import { useState } from "react";
 import Heading from "../components/Heading";
 import Input from "../components/inputs/Input";
@@ -10,7 +9,6 @@ import { AiOutlineGoogle } from "react-icons/ai";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { signIn } from 'next-auth/react'
-import { Router } from "next/router";
 import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
@@ -30,8 +28,9 @@ const RegisterForm = () => {
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true)
+        console.log(data.email)
         axios.post('/api/register', data).then(() => {
-            toast.success('Account Created')
+            toast.success('Account Created');
             signIn('credentials', {
                 email: data.email,
                 password: data.password,
@@ -41,7 +40,7 @@ const RegisterForm = () => {
                 if (callback?.ok) {
                     router.push('/cart')
                     router.refresh()
-                    toast.success('Loggin In')
+                    toast.success('Logged In')
                 }
                 if (callback?.error) {
                     toast.error(callback.error)
