@@ -3,5 +3,6 @@ const Cart = () => {
         Cart Page
     </div> );
 }
+
  
 export default Cart;
