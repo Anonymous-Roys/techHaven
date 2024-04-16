@@ -2,7 +2,7 @@ import Link from "next/link"
 import Container from "../Container"
 import FooterList from "./FooterList"
 import { MdFacebook } from "react-icons/md"
-import { AiFillInstagram, AiFillTwitterCircle, AiFillYoutube } from "react-icons/ai"
+import { AiFillGithub, AiFillInstagram, AiFillTwitterCircle, AiFillYoutube } from "react-icons/ai"
 
 const Footer = () => {
   return (
@@ -59,8 +59,8 @@ const Footer = () => {
               <Link href="#">
                 <AiFillTwitterCircle    size={24}/>
               </Link>
-              <Link href="#">
-                <AiFillYoutube size={24}/>
+              <Link href="https://github.com/Anonymous-Roys">
+                <AiFillGithub size={24}/>
               </Link>
               <Link href="#">
                 <AiFillInstagram size={24}/>
