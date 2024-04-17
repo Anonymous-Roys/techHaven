@@ -9,6 +9,11 @@ interface ProductDetailsProps{
     product:any;
 }
 
+const Horizontal = () =>{
+    return <hr className="w-[30% my-2]"/>
+}
+
+
 const ProductDetails:React.FC<ProductDetailsProps> = ({ product }) => {
     const productRating = product.reviews.reduce((acc:number, item:any) => item.rating + acc,0)/product.reviews.length;
 
@@ -26,7 +31,26 @@ const ProductDetails:React.FC<ProductDetailsProps> = ({ product }) => {
                     <Rating value={productRating} readOnly/>
                     <div>{ product.reviews.length } reviews</div>
                 </div>
+                <Horizontal />
                 <div className="text-justify">{ product.description }</div>
+                <Horizontal />
+                <div>
+                    <span className="font-semibold">CATEGORY:</span>
+                    { product.category}
+                </div>
+                <div>
+                    <span className="font-semibold">BRAND:</span>
+                    { product.brand}
+                </div>
+                <div className={product.inStock? "text-teal-400":"text-rose-400"}>
+                    { product.inStock ? 'In Stock':'Out Of Stock' }
+                </div>
+                <Horizontal />
+                <div>COLOR</div>
+                <Horizontal />
+                <div>QUANTITY</div>
+                <Horizontal />
+                <div>Add To Cart</div>
             </div>
         </div>
      );
