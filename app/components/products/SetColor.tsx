@@ -20,7 +20,7 @@ const SetColor: React.FC<SetColorProps> = ({
                     return (
                     <div 
                     key={image.color}
-                    onClick={()=>handleColorSelect()} 
+                    onClick={() => handleColorSelect(image)} 
                     className={`
                     h-7 w-7 rounded-full 
                     border-teal-300

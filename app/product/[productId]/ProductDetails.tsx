@@ -49,15 +49,20 @@ const ProductDetails:React.FC<ProductDetailsProps> = ({ product }) => {
         price:product.price,     
     });
 
+    console.log(cartProduct)
+
     //calc product rating
     const productRating = product.reviews.reduce((acc:number, item:any) => item.rating + acc,0)/product.reviews.length;
 
 
 
     const handleColorSelect = useCallback((value: SelectedImgType) => {
-
+        setCartProduct((prev) =>{
+            return {...prev,selectedImg:value}
+        })
     },
-[cartProduct.selectedImg])
+[cartProduct.selectedImg]
+);
 
     return ( 
         <div className="grid grid-cols-1
