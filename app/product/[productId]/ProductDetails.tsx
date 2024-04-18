@@ -1,6 +1,6 @@
 'use client';
 
-import SetColor from "@/app/components/products.tsx/SetColor";
+import SetColor from "@/app/components/products/SetColor";
 import { Rating } from "@mui/material";
 import { useCallback, useState } from "react";
 
@@ -24,7 +24,7 @@ export type CartProductType={
 
 export type SelectedImgType={
     color:string,
-    colorcode:string,
+    colorCode:string,
     image: string
 }
 
@@ -54,8 +54,8 @@ const ProductDetails:React.FC<ProductDetailsProps> = ({ product }) => {
 
 
 
-    cont handleColorSelect = useCallback((value: SelectedImgType) => {
-        
+    const handleColorSelect = useCallback((value: SelectedImgType) => {
+
     },
 [cartProduct.selectedImg])
 
@@ -89,7 +89,7 @@ const ProductDetails:React.FC<ProductDetailsProps> = ({ product }) => {
                 </div>
                 <Horizontal />
 
-                <SetColor images={[product.images]} 
+                <SetColor images={product.images} 
                 cartProduct={cartProduct}
                  handleColorSelect={ handleColorSelect }/>
 
