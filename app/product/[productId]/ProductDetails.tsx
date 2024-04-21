@@ -68,6 +68,11 @@ const ProductDetails:React.FC<ProductDetailsProps> = ({ product }) => {
 
 const handleQtyIncrease = useCallback(() => {
 
+    
+    if(cartProduct.quantity === 9){
+        return;
+    }
+
     setCartProduct((prev) => {
         return {...prev, Quantity: ++prev.quantity}
     })
@@ -76,6 +81,10 @@ const handleQtyIncrease = useCallback(() => {
 
 //---decrease quantity function
 const handleQtyDecrease = useCallback(() => {
+
+    if(cartProduct.quantity === 1){
+        return;
+    }
 
     setCartProduct((prev) => {
         return {...prev,Quantity: --prev.quantity}
