@@ -4,18 +4,18 @@ import { CartProductType, SelectedImgType } from "@/app/product/[productId]/Prod
 import Image from "next/image";
 
 interface ProductImageProps{
-    carProduct: CartProductType,
+    cartProduct: CartProductType,
     product: any,
     handleColorSelect: (value: SelectedImgType) => void;
 }
 
 const ProductImage: React.FC<ProductImageProps> = ({
-    carProduct,product,handleColorSelect,
+    cartProduct,product,handleColorSelect,
 }) => {
 
     return ( <div className="
         grid
-        grod-cols-6
+        grid-cols-6
         gap-2
         h-full
         max-h-[500px]
@@ -26,10 +26,10 @@ const ProductImage: React.FC<ProductImageProps> = ({
             flex
             flex-col
             items-center
-            justidy-center
+            justify-center
             gap-4
             cursor-pointer
-            birder
+            border
             h-full
             max-h-[500px]
             min-h-[300px]
@@ -41,10 +41,12 @@ const ProductImage: React.FC<ProductImageProps> = ({
                 key={image.color}
                 onClick={()=> handleColorSelect(image)}
                 className= { `
-                   relative w-80% 
+                   relative w-[80%] 
                    aspect-square rounded 
                    border-teal-300
-                   ${cartProduct.selectedImg}
+                   ${cartProduct.selectedImg.color === image.color 
+                    ?
+                     'border-[1.5px]': 'border-none'}
                 `}>
                 <Image 
                     src={image.image} 
@@ -55,7 +57,23 @@ const ProductImage: React.FC<ProductImageProps> = ({
               </div>  
             })}
         </div>
-        <div></div>
+        <div className="col-span-5 relative 
+        aspect-square
+        ">
+            <Image 
+                src={cartProduct.selectedImg.image}
+                alt={cartProduct.name}
+                fill 
+                className="w-full 
+                h-full 
+        
+                object-contain
+                max-h-[500px]
+                min-h-[300px]
+                sm:min-h-[480px]"
+            />
+
+        </div>
 
     </div> );
 }
