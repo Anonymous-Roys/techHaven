@@ -134,7 +134,7 @@ const handleQtyDecrease = useCallback(() => {
                 handleQtyDecrease ={handleQtyDecrease}
                 />
                 <Horizontal />
-                <div>
+                <div className="max-w-300px">
                     <Button 
                     label="Add To Cart"
                     onCLick={() =>{}}
