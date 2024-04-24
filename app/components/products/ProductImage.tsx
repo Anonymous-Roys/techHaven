@@ -19,7 +19,7 @@ const ProductImage: React.FC<ProductImageProps> = ({
         gap-2
         h-full
         max-h-[500px]
-        min-h-[300px]
+        min-h-[300px] 
         sm:min-h-[400px]
     ">
         <div className="
