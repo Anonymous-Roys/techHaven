@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 type CartContextType = {
     cartTotalQty: number
@@ -7,13 +7,27 @@ type CartContextType = {
 export const CartContext = 
 createContext<CartContextType | null>(null)
 
-export const CartContextProvider = () =>{
+interface Props{
+    [propName: string]: any
+}
+
+export const CartContextProvider = (props :Props) =>{
 
     const [cartTotalQty, setCartTotalQty] = useState(0)
-    
+
     const value = {
         cartTotalQty
     }
 
-    return <CartContext.Provider value = {value}/>
+    return <CartContext.Provider value = {value}  {...props}/>
+}
+
+
+export const useCart = ()=>{
+    const context = useContext(CartContext)
+
+    if(context === null){
+        throw new Error("UseCart must be used within a cartContextProvider")
+    }
+    return context
 }
