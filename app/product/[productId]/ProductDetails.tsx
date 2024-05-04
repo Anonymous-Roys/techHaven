@@ -41,6 +41,7 @@ const Horizontal = () =>{
 
 const ProductDetails:React.FC<ProductDetailsProps> = ({ product }) => {
 
+    const { handleAddProductToCart, cartProducts} = useCart()
     const {cartTotalQty} = useCart()
     const [cartProduct,setCartProduct]=
     useState<CartProductType>({
@@ -54,7 +55,7 @@ const ProductDetails:React.FC<ProductDetailsProps> = ({ product }) => {
         price:product.price,     
     });
 
-    console.log(cartTotalQty)
+    console.log(cartProducts)
 
     //calc product rating
     const productRating = product.reviews.reduce((acc:number, item:any) => item.rating + acc,0)/product.reviews.length;
@@ -144,7 +145,7 @@ const handleQtyDecrease = useCallback(() => {
                 <div className="max-w-300px">
                     <Button 
                     label="Add To Cart"
-                    onCLick={() =>{}}
+                    onClick={() =>handleAddProductToCart(cartProduct)}
                     />
                 </div>
             </div>
