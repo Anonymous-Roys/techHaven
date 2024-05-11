@@ -23,8 +23,10 @@ export const CartContextProvider = (props :Props) =>{
     useEffect(() =>{
         const cartItems: any = localStorage.getItem('eShopItems')
         const cProducts: CartProductType[] | null = JSON.parse(cartItems)
+        
         setCartProducts(cProducts)
     },[])
+
     const handleAddProductToCart = useCallback((product:CartProductType)=>{
         setCartProducts((prev)=>{
             let updatedCart;
