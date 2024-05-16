@@ -17,13 +17,13 @@ interface Props{
 export const CartContextProvider = (props :Props) =>{
     
     const [cartTotalQty, setCartTotalQty] = useState(0)
-    const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(null)
+    const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(null);
 
 
     useEffect(() =>{
-        const cartItems: any = localStorage.getItem('eShopItems')
+        const cartItems: any = localStorage.getItem('eShopCartItems')
         const cProducts: CartProductType[] | null = JSON.parse(cartItems)
-        
+
         setCartProducts(cProducts)
     },[])
 
