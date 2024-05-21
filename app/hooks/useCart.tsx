@@ -10,9 +10,11 @@ import { toast } from 'react-hot-toast'
 
 
 type CartContextType = {
+    id: string;
     cartTotalQty: number;
     cartProducts: CartProductType[] | null;
     handleAddProductToCart: (product:CartProductType) => void;
+    handleRemoveProductFromCart: (product:CartProductType) => void;
 }
 
 export const CartContext = 
@@ -49,12 +51,31 @@ export const CartContextProvider = (props :Props) =>{
             localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
             return updatedCart;
         })
-    }, [])
+    }, []);
+
+    const handleRemoveProductFromCart = useCallback((
+        product: CartContextType
+    ) =>{
+        if(cartProducts){
+            const filteredProducts = cartProducts.filter(
+                (item)=>{
+                    return item.id !== product.id
+                }
+            )
+            setCartProducts(filteredProducts)
+            toast.success('Product removed')
+            localStorage.setItem('eShopCartItems', JSON.stringify(filteredProducts));
+
+
+        }
+    },[cartProducts])
 
     const value = {
         cartTotalQty,
         cartProducts,
         handleAddProductToCart,
+        handleRemoveProductFromCart
+
     }
 
     return <CartContext.Provider value = {value}  {...props}/>
