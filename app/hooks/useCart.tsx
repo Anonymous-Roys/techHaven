@@ -1,9 +1,9 @@
-import { 
-    createContext, 
-    useCallback, 
-    useContext, 
-    useEffect, 
-    useState 
+import {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useState
 } from "react";
 import { CartProductType } from "../product/[productId]/ProductDetails";
 import { toast } from 'react-hot-toast'
@@ -13,39 +13,40 @@ type CartContextType = {
     id: string;
     cartTotalQty: number;
     cartProducts: CartProductType[] | null;
-    handleAddProductToCart: (product:CartProductType) => void;
-    handleRemoveProductFromCart: (product:CartProductType) => void;
-    handleCartQtyIncrease: (product:CartProductType) => void;
-    handleCartQtyDecrease: (product:CartProductType) => void;
+    handleAddProductToCart: (product: CartProductType) => void;
+    handleRemoveProductFromCart: (product: CartProductType) => void;
+    handleCartQtyIncrease: (product: CartProductType) => void;
+    handleCartQtyDecrease: (product: CartProductType) => void;
+    handleClearCart: () => void;
 }
 
-export const CartContext = 
-createContext<CartContextType | null>(null)
+export const CartContext =
+    createContext<CartContextType | null>(null)
 
-interface Props{
+interface Props {
     [propName: string]: any
 }
 
-export const CartContextProvider = (props :Props) =>{
-    
+export const CartContextProvider = (props: Props) => {
+
     const [cartTotalQty, setCartTotalQty] = useState(0)
     const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(null);
 
 
-    useEffect(() =>{
+    useEffect(() => {
         const cartItems: any = localStorage.getItem('eShopCartItems')
         const cProducts: CartProductType[] | null = JSON.parse(cartItems)
 
         setCartProducts(cProducts)
-    },[])
+    }, [])
 
-    const handleAddProductToCart = useCallback((product:CartProductType)=>{
-        setCartProducts((prev)=>{
+    const handleAddProductToCart = useCallback((product: CartProductType) => {
+        setCartProducts((prev) => {
             let updatedCart;
 
-            if(prev){
+            if (prev) {
                 updatedCart = [...prev, product];
-            }else{
+            } else {
                 updatedCart = [product];
             }
 
@@ -57,10 +58,10 @@ export const CartContextProvider = (props :Props) =>{
 
     const handleRemoveProductFromCart = useCallback((
         product: CartContextType
-    ) =>{
-        if(cartProducts){
+    ) => {
+        if (cartProducts) {
             const filteredProducts = cartProducts.filter(
-                (item)=>{
+                (item) => {
                     return item.id !== product.id
                 }
             )
@@ -70,44 +71,51 @@ export const CartContextProvider = (props :Props) =>{
 
 
         }
-    },[cartProducts])
+    }, [cartProducts])
 
-    const handleCartQtyIncrease= useCallback((product:CartProductType) =>{
+    const handleCartQtyIncrease = useCallback((product: CartProductType) => {
         let updatedCart;
-        if(product.quantity === 99){ 
+        if (product.quantity === 99) {
             return toast.error("Oops! Maximum reached");
         }
-        if(cartProducts){
+        if (cartProducts) {
             updatedCart = [...cartProducts]
 
             const existingIndex = cartProducts.findIndex((item) => item.id === product.id);
-            if(existingIndex > -1){
-                updatedCart[existingIndex].quantity = 
-                ++updatedCart[existingIndex].quantity
+            if (existingIndex > -1) {
+                updatedCart[existingIndex].quantity =
+                    ++updatedCart[existingIndex].quantity
             }
-             setCartProducts(updatedCart)
-             localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
+            setCartProducts(updatedCart)
+            localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
 
         }
-    },[cartProducts])
+    }, [cartProducts])
 
-    const handleCartQtyDecrease= useCallback((product:CartProductType) =>{
+    const handleCartQtyDecrease = useCallback((product: CartProductType) => {
         let updatedCart;
-        if(product.quantity === 1){ 
+        if (product.quantity === 1) {
             return toast.error("Oops! Minimum reached");
         }
-        if(cartProducts){
+        if (cartProducts) {
             updatedCart = [...cartProducts]
 
             const existingIndex = cartProducts.findIndex((item) => item.id === product.id);
-            if(existingIndex > -1){
-                updatedCart[existingIndex].quantity = 
-                --updatedCart[existingIndex].quantity
+            if (existingIndex > -1) {
+                updatedCart[existingIndex].quantity =
+                    --updatedCart[existingIndex].quantity
             }
-             setCartProducts(updatedCart)
-             localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
+            setCartProducts(updatedCart)
+            localStorage.setItem('eShopCartItems', JSON.stringify(updatedCart));
 
         }
+    }, [cartProducts])
+
+    const handleClearCart = useCallback(() => {
+        setCartProducts(null)
+        setCartTotalQty(0)
+        localStorage.setItem('eShopCartItems', JSON.stringify(null));
+
     },[cartProducts])
 
     const value = {
@@ -117,16 +125,17 @@ export const CartContextProvider = (props :Props) =>{
         handleRemoveProductFromCart,
         handleCartQtyIncrease,
         handleCartQtyDecrease,
+        handleClearCart
     }
 
-    return <CartContext.Provider value = {value}  {...props}/>
+    return <CartContext.Provider value={value}  {...props} />
 }
 
 
-export const useCart = ()=>{
+export const useCart = () => {
     const context = useContext(CartContext)
 
-    if(context === null){
+    if (context === null) {
         throw new Error("UseCart must be used within a cartContextProvider")
     }
     return context
