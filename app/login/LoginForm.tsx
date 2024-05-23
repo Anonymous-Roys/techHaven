@@ -14,7 +14,6 @@ const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = 
     useForm<FieldValues>({
         defaultValues:{
-            name: '',
             email: '',
             password: '',
 
@@ -31,10 +30,10 @@ const LoginForm = () => {
     }
     return (
         <>
-            <Heading title="Sign Up for E-shop" />
+            <Heading title="Sign In To E-shop" />
             <Button 
             outline 
-            label="Sign up with Google" 
+            label="Continue with Google" 
             icon={AiOutlineGoogle}
             onClick={()=>{}}
             />
