@@ -38,14 +38,7 @@ const LoginForm = () => {
             onClick={()=>{}}
             />
             <hr className="bg-slate-300 w-full h-px" />
-            <Input
-                id="name"
-                label="Name"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
+           
             <Input
                 id="email"
                 label="Email"
@@ -64,12 +57,12 @@ const LoginForm = () => {
                 required
                 type="password"
             />
-            <Button label={isLoading ? "Loading" : "Sign Up"}
+            <Button label={isLoading ? "Loading" : "Login"}
             onClick={handleSubmit(onSubmit)}/>
 
             <p className="text-sm">
-                Already have an account ? 
-                <Link href='/login'className="underline">Log in</Link>
+                Do not have an account ? 
+                <Link href='/register'className="underline">Sign Up</Link>
             </p>
         </>);
 }
