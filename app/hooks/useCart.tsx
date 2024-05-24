@@ -53,7 +53,8 @@ export const CartContextProvider = (props: Props) => {
                     acc.qty += item.quantity;
     
                     return acc;
-                }, {
+                }, 
+                {
                     total:0, 
                     qty: 0
                 });
@@ -61,7 +62,12 @@ export const CartContextProvider = (props: Props) => {
                 setCartTotalAmount(total);
             }
             }
+        getTotals()    
     }, [cartProducts])
+    console.log(cartTotalQty)
+
+
+
 
     const handleAddProductToCart = useCallback((product: CartProductType) => {
         setCartProducts((prev) => {
