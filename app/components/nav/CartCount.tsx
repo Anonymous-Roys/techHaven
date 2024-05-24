@@ -7,7 +7,7 @@ import { CiShoppingCart } from "react-icons/ci";
 const CartCount = () => {
     const { cartTotalQty } = useCart()
     const router = useRouter()
-    
+
     return (<div
         className="relative cursor-pointer"
         onClick={() => router.push("/cart")}>
@@ -27,7 +27,7 @@ const CartCount = () => {
         items-center 
         justify-center 
         text-sm">
-           { cartTotalQty } 
+            {cartTotalQty}
         </span>
     </div>);
 }

@@ -41,28 +41,28 @@ export const CartContextProvider = (props: Props) => {
         setCartProducts(cProducts)
     }, [])
 
-    useEffect(()=>{
-        const getTotals = ()=>{
+    useEffect(() => {
+        const getTotals = () => {
 
-            if (cartProducts){
+            if (cartProducts) {
 
-                const{total, qty} = cartProducts?.reduce((acc, item)=>{
-                    const itemTotal = item.price *  item.quantity;
-    
+                const { total, qty } = cartProducts?.reduce((acc, item) => {
+                    const itemTotal = item.price * item.quantity;
+
                     acc.total += itemTotal;
                     acc.qty += item.quantity;
-    
+
                     return acc;
-                }, 
-                {
-                    total:0, 
-                    qty: 0
-                });
+                },
+                    {
+                        total: 0,
+                        qty: 0
+                    });
                 setCartTotalQty(qty);
                 setCartTotalAmount(total);
             }
-            }
-        getTotals()    
+        }
+        getTotals()
     }, [cartProducts])
     console.log(cartTotalQty)
 
@@ -145,7 +145,7 @@ export const CartContextProvider = (props: Props) => {
         setCartTotalQty(0)
         localStorage.setItem('eShopCartItems', JSON.stringify(null));
 
-    },[cartProducts])
+    }, [cartProducts])
 
     const value = {
         cartTotalQty,
