@@ -40,6 +40,12 @@ export const CartContextProvider = (props: Props) => {
         setCartProducts(cProducts)
     }, [])
 
+    useEffect(()=>{
+        const getTotals = ()=>{
+            cat
+        }
+    }, [cartProducts])
+
     const handleAddProductToCart = useCallback((product: CartProductType) => {
         setCartProducts((prev) => {
             let updatedCart;
