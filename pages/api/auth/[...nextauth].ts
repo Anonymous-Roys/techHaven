@@ -6,5 +6,7 @@ const prisma = new PrismaClient()
  
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
-  providers: [],
+  providers: [
+    GoogleProvider
+  ],
 })
