@@ -3,7 +3,8 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
-import prisma from "@libs/prismadb" 
+import prisma from "@/libs/prismadb" 
+import bcrypt from 'bcrypt'
 
  
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -18,7 +19,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         //  accessTokenUrl: 'https://www.googleapis.com/oauth2/v4/token',
         //  profileUrl: 'https://www.googleapis.com/oauth2/v3/userinfo',
         //  scope: ['profile', 'email'],
-    })
+    }),
     CredentialsProvider({
         name: 'credentials',
         credentials:{
@@ -45,12 +46,24 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             if(!user || ! user?.hashedPassword){
                 throw new Error('Invalid password')
             }
-            if (user) {
-                if (user.hashedPassword ===  credentials.password) {
-                    return user
-                }
+
+
+
+            // if (user) {
+            //     if (user.hashedPassword ===  credentials.password) {
+            //         return user
+            //     }
+            // }
+            // return null
+
+            const isCorrectPassword = await bcrypt.compare(
+                credentials.password,
+                user.hashedPassword
+            )
+
+            if(!isCorrectPassword){
+                
             }
-            return null
         }
     })
   ],
