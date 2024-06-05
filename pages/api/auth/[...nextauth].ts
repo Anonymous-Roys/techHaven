@@ -35,13 +35,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         },
         async authorize(credentials) {
             if(!credentials?.email || !credentials.password){
-                throw new error('Invalid email or password')
+                throw new Error('Invalid email or password')
             }
             const user = await prisma.user.findUnique({
                 where: {
                     email: credentials.email,
                 },
             })
+            if(!user || ! user?.hashedPassword){
+                throw new Error('Invalid password')
+            }
             if (user) {
                 if (user.hashedPassword ===  credentials.password) {
                     return user
