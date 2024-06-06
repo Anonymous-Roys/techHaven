@@ -7,6 +7,8 @@ interface AvatarProps{
 }
 
 
+
+
 const Avatar: React.FC<AvatarProps> = ({
     src
 }) => {
