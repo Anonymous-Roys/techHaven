@@ -7,36 +7,57 @@ import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import Button from "../components/Button";
 import Link from "next/link";
 import { AiOutlineGoogle } from "react-icons/ai";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { signIn } from 'next-auth/react'
+import { Router } from "next/router";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
 
-    const [ isLoading, setIsLoading ] = useState(false)
-    const { register, handleSubmit, formState: { errors } } = 
-    useForm<FieldValues>({
-        defaultValues:{
-            name: '',
-            email: '',
-            password: '',
+    const [isLoading, setIsLoading] = useState(false)
+    const { register, handleSubmit, formState: { errors } } =
+        useForm<FieldValues>({
+            defaultValues: {
+                name: '',
+                email: '',
+                password: '',
 
-        }
-    })
+            }
+        })
 
-    const onSubmit:SubmitHandler<FieldValues> = (data) =>{
+    const router = useRouter()
+
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true)
-        console.log(data)
-        // setTimeout(() => {
-        //     setIsLoading(false)
-        // }, 2000);
-        // console.log(errors)
+        axios.post('/api/register', data).then(() => {
+            toast.success('Account Created')
+            signIn('credentials', {
+                email: data.email,
+                password: data.password,
+                redirect: false,
+
+            }).then((callback) => {
+                if (callback?.ok) {
+                    router.push('/cart')
+                    router.refresh()
+                    toast.success('Loggin In')
+                }
+                if (callback?.error) {
+                    toast.error(callback.error)
+                }
+            })
+        }).catch(() => toast.error('Something went wrong'))
+        .finally(() => setIsLoading(false))     
     }
     return (
         <>
             <Heading title="Sign Up for E-shop" />
-            <Button 
-            outline 
-            label="Sign up with Google" 
-            icon={AiOutlineGoogle}
-            onClick={()=>{}}
+            <Button
+                outline
+                label="Sign up with Google"
+                icon={AiOutlineGoogle}
+                onClick={() => { }}
             />
             <hr className="bg-slate-300 w-full h-px" />
             <Input
@@ -53,8 +74,8 @@ const RegisterForm = () => {
                 disabled={isLoading}
                 register={register}
                 errors={errors}
-                required 
-                type="email"       
+                required
+                type="email"
             />
             <Input
                 id="password"
@@ -66,11 +87,11 @@ const RegisterForm = () => {
                 type="password"
             />
             <Button label={isLoading ? "Loading" : "Sign Up"}
-            onClick={handleSubmit(onSubmit)}/>
+                onClick={handleSubmit(onSubmit)} />
 
             <p className="text-sm">
-                Already have an account ? 
-                <Link href='/login'className="underline">Log in</Link>
+                Already have an account ?
+                <Link href='/login' className="underline">Log in</Link>
             </p>
         </>);
 }
