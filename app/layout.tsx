@@ -5,6 +5,7 @@ import NavBar from "./components/nav/NavBar";
 import Footer from "./components/footer/Footer";
 import CartProvider from "@/providers/CartProvider";
 import {Toaster} from "react-hot-toast"
+import { getCurrentUser } from "@/actions/getCurrentUser";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({ subsets: ["latin"], weight:
@@ -16,11 +17,14 @@ export const metadata: Metadata = {
   description: "An Ecommerce Website",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const currentUser = await getCurrentUser()
+  console.log("user<<<",currentUser)
   return (
     <html lang="en">
       <body className={`${poppins.className} 
