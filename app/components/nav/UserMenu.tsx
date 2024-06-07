@@ -38,7 +38,7 @@ const UserMenu = () => {
                     <div className="absolute
                     rounded-md
                     shadow-md
-                    w-[170px]
+                    w-[190px]
                     bg-white
                     overflow-hidden
                     right-0
@@ -58,13 +58,10 @@ const UserMenu = () => {
                                     Admin Dashboard
                                 </MenuItem>
                             </Link>
-                            <Link href="orders">
-                                <MenuItem onClick={toggleOpen}>
-                                    Your Orders
-                                </MenuItem>
-                            </Link>
+                            
                             <MenuItem onClick={()=>{
-                                toggleOpen(); signOut
+                                toggleOpen(); 
+                                signOut();
                             }}>
                                     Logout
                                 </MenuItem>
@@ -86,7 +83,7 @@ const UserMenu = () => {
                 )
             }
         </div>
-        {isOpen ? <BackDrop onClick={toggleOpen} /> : null
+        {isOpen ? <BackDrop onClick={toggleOpen} /> : null}
     </>);
 }
 

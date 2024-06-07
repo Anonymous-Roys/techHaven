@@ -8,7 +8,8 @@ const BackDrop:React.FC<BackDropProps> = (
     return ( <div onClick={onclick}
         className="
         z-20
-        bg-slate-50
+        bg-slate-200
+        opacity-50
         w-screen
         h-screen
         fixed
