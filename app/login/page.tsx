@@ -5,7 +5,7 @@ import LoginForm from "./LoginForm";
 
 
 const Login = async() => {
-    const currentUser = await getCurrentUser
+    const currentUser = await getCurrentUser();
     return (
         <Container>
             <FormWrap>

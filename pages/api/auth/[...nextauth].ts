@@ -70,6 +70,10 @@ export const authOptions: AuthOptions={
     ],
     pages:{
       signIn:"/login",
+      signOut: "/login",
+    //   error: "/login",
+    //   verifyRequest: "/login",
+    //   newUser: "/login",
     },
     debug: process.env.NODE_ENV === 'development',
     session: {
@@ -79,4 +83,4 @@ export const authOptions: AuthOptions={
   }
 
 // export const { handlers, auth, signIn, signOut } = NextAuth({
-    export default NextAuth(authOptions)
+export default NextAuth(authOptions)

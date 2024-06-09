@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Heading from "../components/Heading";
 import Input from "../components/inputs/Input";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
@@ -18,7 +18,7 @@ interface RegisterFormProps{
 }
 
 
-const RegisterForm = () => {
+const RegisterForm:React.FC<RegisterFormProps> = ({currentUser}) => {
 
     const [isLoading, setIsLoading] = useState(false)
     const { register, handleSubmit, formState: { errors } } =
@@ -32,6 +32,12 @@ const RegisterForm = () => {
         })
 
     const router = useRouter()
+    useEffect(()=>{
+        if(currentUser){
+            router.push('/cart')
+            router.refresh()
+        }
+    },[])
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true)
@@ -55,6 +61,10 @@ const RegisterForm = () => {
             })
         }).catch(() => toast.error('Something went wrong'))
         .finally(() => setIsLoading(false))     
+    }
+
+    if(currentUser){
+        return <p className="text-center">Logged In. Redirecting...</p>
     }
     return (
         <>
