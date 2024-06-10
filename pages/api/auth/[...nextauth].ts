@@ -1,7 +1,7 @@
 import NextAuth, { AuthOptions } from "next-auth"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
-// import GoogleProvider from "next-auth/providers/google"
+import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials" 
 import prisma from "@/libs/prismadb"
 import bcrypt from 'bcrypt'
@@ -10,16 +10,16 @@ import bcrypt from 'bcrypt'
 export const authOptions: AuthOptions={
     adapter: PrismaAdapter(prisma),
     providers: [
-      // GoogleProvider({
-      //      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      //      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      GoogleProvider({
+           clientId: process.env.GOOGLE_CLIENT_ID as string,
+           clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
   
   
-      //     //  authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
-      //     //  accessTokenUrl: 'https://www.googleapis.com/oauth2/v4/token',
-      //     //  profileUrl: 'https://www.googleapis.com/oauth2/v3/userinfo',
-      //     //  scope: ['profile', 'email'],
-      // }),
+          //  authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
+          //  accessTokenUrl: 'https://www.googleapis.com/oauth2/v4/token',
+          //  profileUrl: 'https://www.googleapis.com/oauth2/v3/userinfo',
+          //  scope: ['profile', 'email'],
+      }),
       CredentialsProvider({
           name: 'credentials',
           credentials:{
@@ -70,7 +70,7 @@ export const authOptions: AuthOptions={
     ],
     pages:{
       signIn:"/login",
-      signOut: "/login",
+      signOut: "/register",
     //   error: "/login",
     //   verifyRequest: "/login",
     //   newUser: "/login",
