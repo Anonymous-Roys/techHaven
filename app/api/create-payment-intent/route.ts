@@ -14,5 +14,5 @@ const calculateOrderAmount = (items: CartProductType[]) => {
     }, 0);
     return totalPrice
 }
-
+// loading a user
 export async function POST(reques: Request)
