@@ -16,13 +16,18 @@ const calculateOrderAmount = (items: CartProductType[]) => {
 }
 // loading a user
 export async function POST(reques: Request){
-    const body = await reques.json();
-    const {items} = body;
-    const amount = calculateOrderAmount(items)
-    const paymentIntent = await stripe.paymentIntents.create({
-        amount,
-        currency: "usd",
-        payment_method_types: ["card"],
-        confirm: true,
-    });
+    // const body = await reques.json();
+    // const {items} = body;
+    // const amount = calculateOrderAmount(items)
+    // const paymentIntent = await stripe.paymentIntents.create({
+    //     amount,
+    //     currency: "usd",
+    //     payment_method_types: ["card"],
+    //     confirm: true,
+    // });
+    const currentUser = await getCurrentUser()
+
+    if(!currentUser){
+        return NextResponse.json({error: "Unauthorized"}, {status:401});
+    }
 }
