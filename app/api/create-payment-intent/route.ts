@@ -15,4 +15,14 @@ const calculateOrderAmount = (items: CartProductType[]) => {
     return totalPrice
 }
 // loading a user
-export async function POST(reques: Request)
+export async function POST(reques: Request){
+    const body = await reques.json();
+    const {items} = body;
+    const amount = calculateOrderAmount(items)
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount,
+        currency: "usd",
+        payment_method_types: ["card"],
+        confirm: true,
+    });
+}
